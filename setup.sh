@@ -2,30 +2,23 @@
 up() {
   echo "Starting Airbyte..."
   cd airbyte
-  docker-compose down 
-  docker-compose up 
+  docker-compose down -v
+  docker-compose up -d
   cd ..
 
   echo "Starting Airflow..."
   cd airflow
-  docker-compose down     
+  docker-compose down -v    
   docker-compose up airflow-init
-  docker-compose up 
+  docker-compose up -d
   cd ..
 
   echo "Starting Metabase..."
   cd metabase
-  docker-compose down
-  docker-compose up
+  docker-compose down -v
+  docker-compose up -d
   cd ..
-
-  docker network create modern-data-stack
-  docker network connect modern-data-stack airbyte-proxy
-  docker network connect modern-data-stack airbyte-worker  
-  docker network connect modern-data-stack airflow-airflow-worker-1
-  docker network connect modern-data-stack airflow-airflow-webserver-1
-  docker network connect modern-data-stack metabase
-  
+ 
   echo "Access Airbyte at http://localhost:8000 and set up the connections."
   
   echo "Access Airflow at http://localhost:8080 to kick off your Airbyte sync DAG."  
@@ -55,6 +48,13 @@ config() {
   docker-compose run airflow-webserver airflow variables set 'AIRBYTE_DEMOGRAPHICS_CONNECTION_ID' "$demographics_connection_id"
   docker-compose run airflow-webserver airflow variables set 'AIRBYTE_INDEX_CONNECTION_ID' "$index_connection_id"
 
+  docker network create modern-data-stack
+  docker network connect modern-data-stack airbyte-proxy
+  docker network connect modern-data-stack airbyte-worker  
+  docker network connect modern-data-stack airflow-airflow-worker-1
+  docker network connect modern-data-stack airflow-airflow-webserver-1
+  docker network connect modern-data-stack metabase
+  
   docker-compose run airflow-webserver airflow connections add 'airbyte_example' --conn-uri 'airbyte://airbyte-proxy:8000'
   cd ..
   echo "Config Updated..."
