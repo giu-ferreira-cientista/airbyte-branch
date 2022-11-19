@@ -19,9 +19,8 @@ Infraestrutura:
 - Snowflake Data Warehouse:
     
     - Criar a Conta no SnowFlake 
-    - Criacao das entidades através de script 
-    - Verificando a existência das tabelas 
-    - Obtenção dos links de conexão e nome da conta 
+    - Verificar a existência das tabelas 
+    - Obter os links de conexão e nome da conta 
 
 
 Extração:
