@@ -56,6 +56,7 @@ config() {
   docker network connect modern-data-stack airflow-airflow-webserver-1
   docker network connect modern-data-stack metabase
   
+  cd airflow
   docker-compose run airflow-webserver airflow connections add 'airbyte_example' --conn-uri 'airbyte://airbyte-proxy:8000'
   cd ..
   
