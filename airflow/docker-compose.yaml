@@ -276,7 +276,3 @@ services:
 
 volumes:
   postgres-db-volume:
-  
-networks:
-  default:
-      name: modern-data-stack

@@ -9,6 +9,3 @@ services:
     volumes:
       # declare your mount volume /host/dir:/container/dir
       - /home/app/metabase-data:/metabase-data
-networks:
-  default:
-      name: modern-data-stack
